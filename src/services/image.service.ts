@@ -1,8 +1,8 @@
-import {Request} from "express";
 import ResponseData from "./response.interface";
 import sharp from 'sharp';
 import file_system from 'fs';
 import path from 'path';
+import {promises as fs} from 'fs';
 
 export class ImageService {
 
@@ -43,7 +43,10 @@ export class ImageService {
                 return this.responseShape(message, 200, path.resolve(target_path_image));
             } else {
                 try{
-                    const sharp_image = await sharp(path_image)
+                    if (!file_system.existsSync(absolute_path + 'thumb')){
+                        await fs.mkdir(absolute_path + 'thumb')
+                    }
+                    await sharp(path_image)
                         .resize(width, height)
                         .jpeg({ mozjpeg: true })
                         .toFile(target_path_image)
