@@ -1,15 +1,13 @@
 import express from "express";
 
-import teachers from '../teachers/teachers.router'
-import students from '../students/students.router'
+import images from '../images/images.router'
 
 const routes = express.Router();
 
-routes.get("/", (req, res) => {
+routes.get("/api", (req, res) => {
   res.send('Main APIs router');
 });
 
-routes.use('/teachers', teachers);
-routes.use('/students', students);
+routes.use('/api/images', images);
 
 export default routes;
