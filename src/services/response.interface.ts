@@ -1,7 +1,7 @@
 export interface ResponseData {
-    message?: string,
-    path?: string,
-    code: number
+  message?: string;
+  path?: string;
+  code: number;
 }
 
 export default ResponseData;

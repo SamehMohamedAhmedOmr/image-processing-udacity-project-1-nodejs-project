@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prettier": "prettier --config .prettierrc \"src/**/*.js\" --write",
+    "prettier": "prettier --config .prettierrc \"src/**/*.ts\" --write",
     "lint": "eslint \"src/**/*.js\"",
     "build": "npx tsc",
     "jasmine": "jasmine",
