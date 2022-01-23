@@ -1,13 +1,16 @@
 import express from "express";
-import ImageService from '../../../services/image.service'
 import ResponseData from "../../../services/response.interface";
+import ImageService from "../../../services/image.service";
 
 const images = express.Router();
 
 images.get("/", async (req, res) => {
   let image_service:ImageService = new ImageService();
 
-  let response:ResponseData =  await image_service.imageProcessing(req);
+  let query_params = req.query
+  let response:ResponseData =  await image_service.imageProcessing(<string>query_params?.image, <string>query_params?.width,
+      <string>query_params?.height);
+
   if (response.code == 404) {
     res.send(response.message);
   }
@@ -20,6 +23,7 @@ images.get("/", async (req, res) => {
     }
   }
 
+  return response.code;
 });
 
 export default images;

@@ -9,18 +9,20 @@ export class ImageService {
     constructor() {
     }
 
-    public async imageProcessing(req: Request): Promise<ResponseData> {
+    public async imageProcessing(image: string, width_params: string, height_params: string): Promise<ResponseData> {
         let absolute_path = 'src/assets/images/';
 
-        let message: string = 'TEST';
+        let message: string = '';
         let code = 200;
-        let query_params = req.query
 
-        if (query_params?.image && query_params?.width && query_params?.height) {
+        let width:number = parseInt(width_params);
+        let height:number = parseInt(height_params);
 
-            let target_image = <string>query_params.image;
-            let image_object = target_image.split('.');
-            let path_image = absolute_path + target_image;
+
+        if (image && width && height) {
+
+            let image_object = image.split('.');
+            let path_image = absolute_path + image;
 
             if (image_object.length < 2 || !file_system.existsSync(path_image)) {
                 message = "Image Not found, please enter valid image";
@@ -28,8 +30,6 @@ export class ImageService {
                 return this.responseShape(message, code);
             }
 
-            let width = parseInt(<string>query_params.width);
-            let height = parseInt(<string>query_params.height);
 
             if (width < 1 || height < 1 || isNaN(width) || isNaN(height)) {
                 message = "Please Enter Valid Width and Height";
