@@ -1,4 +1,8 @@
 import ImageService from '../services/image.service';
+import supertest from 'supertest';
+import app from '../index';
+
+const request = supertest(app);
 
 describe('suite description', () => {
   const image_service: ImageService = new ImageService();
@@ -15,5 +19,12 @@ describe('suite description', () => {
       '100'
     );
     expect(test.code).toEqual(200);
+  });
+
+  it('Test API RESPONSE TO 200', async () => {
+    const response = await request.get(
+      '/api/images?image=image-4.jpg&width=1000&height=500'
+    );
+    expect(response.status).toBe(200);
   });
 });

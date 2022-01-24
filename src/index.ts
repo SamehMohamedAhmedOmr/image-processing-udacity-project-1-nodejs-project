@@ -2,11 +2,13 @@ import express from 'express';
 
 import routes from './routes/api/index/index.router';
 
-const index = express();
+const app = express();
 const port = 3000;
 
-index.use('/', routes);
+app.use('/', routes);
 
-index.listen(port, () => {
+app.listen(port, () => {
   console.log(`Server is working on post ${port}`);
 });
+
+export default app;
