@@ -1,7 +1,7 @@
 import ImageService from '../services/image.service';
 
 describe('suite description', () => {
-  let image_service: ImageService = new ImageService();
+  const image_service: ImageService = new ImageService();
 
   it('function return 404', async () => {
     const test = await image_service.imageProcessing('test.png', '100', '100');

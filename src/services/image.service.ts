@@ -5,24 +5,22 @@ import path from 'path';
 import { promises as fs } from 'fs';
 
 export class ImageService {
-  constructor() {}
-
   public async imageProcessing(
     image: string,
     width_params: string,
     height_params: string
   ): Promise<ResponseData> {
-    let image_folder_path = 'src/assets/images/';
+    const image_folder_path = 'src/assets/images/';
 
-    let message: string = '';
+    let message = '';
     let code = 200;
 
-    let width: number = parseInt(width_params);
-    let height: number = parseInt(height_params);
+    const width: number = parseInt(width_params);
+    const height: number = parseInt(height_params);
 
     if (image && width && height) {
-      let image_object = image.split('.');
-      let path_image = image_folder_path + image;
+      const image_object = image.split('.');
+      const path_image = image_folder_path + image;
 
       if (image_object.length < 2 || !file_system.existsSync(path_image)) {
         message = 'Image Not found, please enter valid image';
@@ -36,7 +34,7 @@ export class ImageService {
         return this.responseShape(message, code);
       }
 
-      let target_path_image =
+      const target_path_image =
         image_folder_path +
         'thumb/' +
         image_object[0] +
@@ -84,7 +82,7 @@ export class ImageService {
   private responseShape(
     message: string,
     code: number,
-    path: string = ''
+    path = ''
   ): ResponseData {
     return {
       message: message,
