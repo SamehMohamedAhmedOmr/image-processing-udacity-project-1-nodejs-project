@@ -1,13 +1,13 @@
-import express from 'express';
+import express, {Request, Response} from 'express';
 import ResponseData from '../../../services/response.interface';
 import ImageService from '../../../services/image.service';
 
 const images = express.Router();
 
-images.get('/', async (req, res) => {
+images.get('/', async (req:Request, res:Response): Promise<number> => {
   let image_service: ImageService = new ImageService();
 
-  let query_params = req.query;
+  const query_params = req.query;
   let response: ResponseData = await image_service.imageProcessing(
     <string>query_params?.image,
     <string>query_params?.width,

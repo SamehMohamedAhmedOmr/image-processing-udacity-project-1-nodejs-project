@@ -12,7 +12,7 @@ export class ImageService {
     width_params: string,
     height_params: string
   ): Promise<ResponseData> {
-    let absolute_path = 'src/assets/images/';
+    let image_folder_path = 'src/assets/images/';
 
     let message: string = '';
     let code = 200;
@@ -22,7 +22,7 @@ export class ImageService {
 
     if (image && width && height) {
       let image_object = image.split('.');
-      let path_image = absolute_path + image;
+      let path_image = image_folder_path + image;
 
       if (image_object.length < 2 || !file_system.existsSync(path_image)) {
         message = 'Image Not found, please enter valid image';
@@ -37,7 +37,7 @@ export class ImageService {
       }
 
       let target_path_image =
-        absolute_path +
+        image_folder_path +
         'thumb/' +
         image_object[0] +
         '-' +
@@ -55,18 +55,14 @@ export class ImageService {
         );
       } else {
         try {
-          if (!file_system.existsSync(absolute_path + 'thumb')) {
-            await fs.mkdir(absolute_path + 'thumb');
+          if (!file_system.existsSync(image_folder_path + 'thumb')) {
+            await fs.mkdir(image_folder_path + 'thumb');
           }
           await sharp(path_image)
             .resize(width, height)
             .jpeg({ mozjpeg: true })
-            .toFile(target_path_image)
-            .catch((err) => {
-              message = 'Something went wrong';
-              code = 404;
-              return this.responseShape(message, code);
-            });
+            .toFile(target_path_image);
+
           return this.responseShape(
             message,
             200,
